@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: filebeat
+spec:
+  template:
+    metadata:
+      labels:
+        name: filebeat
+    spec:
+      containers:
+        - name: filebeat
+          imagePullPolicy: "Always"
+          image: "lsstsqre/k8s-filebeat"
+          env:
+            - name: DEBUG
+              value: debug
+            - name: SHIPPER_NAME
+              value: k8s-filebeat
+            - name: LOGSTASH_HOST
+              value: logstash
+            - name: LOGSTASH_PORT
+              value: "5044"
+          volumeMounts:
+          - mountPath: /containerlogs
+            name: varlibcont
+            readOnly: true
+      volumes:
+      - name: varlibcont
+        hostPath:
+          path: /var/lib/docker/containers
