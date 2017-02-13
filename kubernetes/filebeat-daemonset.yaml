@@ -18,14 +18,27 @@ spec:
             - name: SHIPPER_NAME
               value: k8s-filebeat
             - name: LOGSTASH_HOST
-              value: logstash
+              value: a-lfr.lsst.codes
             - name: LOGSTASH_PORT
-              value: "5044"
+              value: "5045"
           volumeMounts:
           - mountPath: /containerlogs
             name: varlibcont
+            readOnly: true
+          - mountPath: /tls
+            name: tls
             readOnly: true
       volumes:
       - name: varlibcont
         hostPath:
           path: /var/lib/docker/containers
+      - name: tls
+        secret:
+          secretName: filebeat
+          items:
+          - key: ca.crt
+            path: ca.crt
+          - key: beats.crt
+            path: beats.crt
+          - key: beats.key
+            path: beats.key
