@@ -9,7 +9,6 @@ ENV        FILEBEAT_HOME /opt/filebeat-${FILEBEAT_VERSION}-linux-x86_64
 
 USER       root
 WORKDIR    /opt/
-RUN        mkdir /tmp/filebeat
 # If your network is horrible, create a local assets dir and dump the
 #  file into it.
 #COPY       assets/${FILEBEAT_TGZ} .

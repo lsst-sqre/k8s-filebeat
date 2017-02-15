@@ -18,5 +18,3 @@ output.logstash:
   ssl.key: "/tls/beats.key"
   ssl.certificate_authorities: [ "/tls/ca.crt" ]
   ssl.verification_mode: none
-output.file:
-  path: "/tmp/filebeat"
