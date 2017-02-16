@@ -12,13 +12,12 @@ First, add the secrets you will need to connect to the Logstash
 implementation at the far end.  Copy
 `kubernetes/filebeat-secrets.template.yaml` to a scratch file, and
 include the base64 encodings of the CA certificate and your local
-TLS certificate and key.  Then run `kubectl create -f` on that file, and
-then remove the file.
+TLS certificate and key, as well as the logstash host name, logstash
+port, shipper name (which should identify the site, e.g. "gke"), and
+debug (anything but the empty string turns on debug mode).  Then run
+`kubectl create -f` on that file, and then remove the file.
 
-Edit `kubernetes/filebeat-daemonset.yaml` if you need to change anything
-about the endpoint each beat should be talking to.
-
-Finally, create "filebeat" as a DaemonSet: 
+Then all you need to do is to create "filebeat" as a DaemonSet: 
 `kubectl create -f kubernetes/filebeat-daemonset.yaml`
 
 ## How it Works
